@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,39 +8,29 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            height: 300vh; /* Increase height to allow scrolling */
             overflow-x: hidden;
         }
-
         #container {
             position: relative;
             width: 100%;
-            height: 500vh; /* Adjust height to your needs */
+            height: 500vh; /* Same height as you used in Elementor */
             background-color: black;
         }
-
         video {
             position: sticky;
             top: 0;
             width: 100%;
             height: auto;
         }
-
-        @media (max-width: 768px) {
-            /* Adjust video for smaller screens */
-            video {
-                width: 100%;
-                height: auto;
-            }
-        }
     </style>
 </head>
-
 <body>
 
     <div id="container">
         <!-- Video element -->
-        <video class="video-background" muted playsinline preload="auto">
-            <source src="video.mp4" type="video/mp4">
+        <video class="video-background" muted playsinline>
+            <source src="https://khankaleem.in/wp-content/uploads/2024/09/MTU-Block-section.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -52,54 +41,70 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/ScrollTrigger.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            const video = document.querySelector(".video-background");
+    $(document).ready(function() {
+        console.clear();
+        $('video').addClass('video-background');
 
-            // Register GSAP's ScrollTrigger plugin
-            gsap.registerPlugin(ScrollTrigger);
+        const video = document.querySelector(".video-background");
+        let src = video.currentSrc || video.src;
+        console.log(video, src);
 
-            // Timeline to control video playtime during scroll
-            let tl = gsap.timeline({
-                defaults: { duration: 1 },
-                scrollTrigger: {
-                    trigger: "#container", // The container of the video
-                    start: "top top",      // Start when the container reaches the top
-                    end: "bottom bottom",  // End when the container leaves the viewport
-                    scrub: true,           // Smooth scrolling scrub effect
-                    pin: true             // Pin the video in place while scrolling
-                }
-            });
+        // Function to play/pause video on iOS devices
+        function once(el, event, fn, opts) {
+            var onceFn = function(e) {
+                el.removeEventListener(event, onceFn);
+                fn.apply(this, arguments);
+            };
+            el.addEventListener(event, onceFn, opts);
+            return onceFn;
+        }
 
-            // Ensure video metadata is loaded before calculating duration
-            video.addEventListener('loadedmetadata', () => {
-                tl.fromTo(video,
-                    { currentTime: 0 },
-                    { currentTime: 4 } // Assuming the video duration is 10 seconds
-                );
-            });
-
-            // Fix for iOS devices to play/pause video on user interaction
-            function enableAutoplayFix() {
-                function once(el, event, fn, opts) {
-                    var onceFn = function (e) {
-                        el.removeEventListener(event, onceFn);
-                        fn.apply(this, arguments);
-                    };
-                    el.addEventListener(event, onceFn, opts);
-                    return onceFn;
-                }
-
-                once(document.documentElement, "touchstart", function () {
-                    video.play();
-                    video.pause(); // Required by iOS for autoplay to work
-                });
-            }
-
-            enableAutoplayFix();
-
+        once(document.documentElement, "touchstart", function(e) {
+            video.play();
+            video.pause();
         });
+
+        // Register GSAP's ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        let tl = gsap.timeline({
+            defaults: { duration: 1 },
+            scrollTrigger: {
+                trigger: "#container", // Target the container with the video
+                start: "top top",      // Start when the container reaches the top of the viewport
+                end: "bottom bottom",  // End when the container leaves the viewport
+                scrub: true            // Smooth scrolling effect
+            }
+        });
+
+        once(video, "loadedmetadata", () => {
+            tl.fromTo(
+                video,
+                { currentTime: 0 },  // Start from the beginning of the video
+                { currentTime: video.duration || 6 }  // Play till the end as you scroll
+            );
+        });
+
+        // Fetch the video to ensure proper playback
+        setTimeout(function () {
+            if (window["fetch"]) {
+                fetch(src)
+                    .then((response) => response.blob())
+                    .then((response) => {
+                        var blobURL = URL.createObjectURL(response);
+                        var t = video.currentTime;
+                        once(document.documentElement, "touchstart", function(e) {
+                            video.play();
+                            video.pause();
+                        });
+
+                        video.setAttribute("src", blobURL);
+                        video.currentTime = t + 0.01;
+                    });
+            }
+        }, 1000);
+    });
     </script>
 
 </body>
-
 </html>

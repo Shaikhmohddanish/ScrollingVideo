@@ -5,28 +5,96 @@
     <title>Scroll TO Play</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 
 <body>
-    <h1>scroll to play video</h1>
+    <!-- <h1>scroll to play video</h1>
     <div class="videocontainer">
 	    <video id="video" src="MTU Block section_1 (1).mp4"></video>    	
-    </div>
+    </div> -->
+    <main>
+        <div class="canvas-wrapper">
+            <video muted playsinline preload="preload" autobuffer="autobuffer">
+                <source type="video/mp4" src="https://player.vimeo.com/external/275822982.sd.mp4?s=a0bd8409bf088354f151a0bd2c023ffa4d753187&profile_id=165" />
+            </video>
+            <canvas></canvas>
+        </div>
+        <div class="vh-100">
+            <h1>Video onScroll</h1>
+        </div>
+        <section class="vh-100"></section>
+        <section class="vh-100"></section>
+        <section class="vh-100"></section>
+        <section class="vh-100"></section>
+        <section class="vh-100">
+            <h1>The End</h1>
+        </section>
+    </main>
 </body>
 
 </html>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script type="text/javascript">
-function scrollVideo() {
-    var video = $('#video').get(0),
-        videoLength = video.duration,
-        scrollPosition = $(document).scrollTop();
+class ScrollVideo {
+    constructor(elem) {
+        this.elem = elem;
+        this.video = this.elem.querySelector("video");
+        this.videoDuration = 0.001;
+        this.canvas = this.elem.querySelector("canvas");
+        this.ctx = this.canvas.getContext("2d");
+        this.seeked = true;
+    }
+    setVideoDuration() {
+        console.log("ondurationchange");
+        this.videoDuration = this.video.duration;
+    }
+    init() {
+        // this.video.ondurationchange = this.setVideoDuration();
+        this.video.oncanplay = this.loop();
+        this.video.currentTime = 0.001;
+        this.initObserver();
+    }
+    loop() {
+        requestAnimationFrame(() => this.loop());
 
-    video.currentTime = (scrollPosition / ($(document).height() - $(window).height())) * videoLength;
+        if (this.seeked) {
+            this.seeked = false;
+            const { scrollHeight, clientHeight, scrollTop } = document.body;
+            const maxScroll = scrollHeight - clientHeight;
+            const scrollProgress = scrollTop / Math.max(maxScroll, 1);
+
+            //canvas.width = document.body.clientWidth;
+            //canvas.height = document.body.clientHeight;
+            this.canvas.width = this.video.videoWidth;
+            this.canvas.height = this.video.videoHeight;
+
+            if (!isNaN(this.video.duration)) {
+                this.video.currentTime = this.video.duration * scrollProgress;
+            }
+
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.drawImage(
+                this.video,
+                0,
+                0,
+                this.canvas.width,
+                this.canvas.height
+            );
+        }
+    }
+    initObserver() {
+        this.video.addEventListener("seeked", () => {
+            this.seeked = true;
+        });
+    }
 }
 
-$(window).scroll(function(e) {
-    scrollVideo();
+const Components = document.querySelectorAll(".canvas-wrapper");
+
+Components.forEach((item) => {
+    const component = new ScrollVideo(item);
+    component.init();
 });
+
 </script>

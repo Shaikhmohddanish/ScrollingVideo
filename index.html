@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll-Triggered Sticky Video</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            /* height: 300vh; */
+            /* Increase height to allow scrolling */
+            /* overflow-x: hidden; */
+        }
+
+        #container {
+            position: relative;
+            width: 100%;
+            height: 500vh;
+            /* Adjust height to your needs */
+            background-color: black;
+        }
+
+        video {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <!-- Video element -->
+        <video class="video-background" muted playsinline>
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Include GSAP and ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/ScrollTrigger.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const video = document.querySelector(".video-background");
+
+            // Register GSAP's ScrollTrigger plugin
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Timeline to control video playtime during scroll
+            let tl = gsap.timeline({
+                defaults: { duration: 1 },
+                scrollTrigger: {
+                    trigger: "#container", // The container of the video
+                    start: "top top",      // Start when the container reaches the top
+                    end: "bottom bottom",  // End when the container leaves the viewport
+                    scrub: true,           // Smooth scrolling scrub effect
+                    pin: false              // Pin the video in place while scrolling
+                }
+            });
+
+            // Ensure video metadata is loaded before calculating duration
+            video.addEventListener('loadedmetadata', () => {
+                tl.fromTo(video,
+                    { currentTime: 0 },
+                    {
+                        currentTime: 4
+                    } // Assuming the video duration is 10 seconds
+                );
+            });
+
+            setTimeout(function () {
+                if (window["fetch"]) {
+                    fetch(src)
+                        .then((response) => response.blob())
+                        .then((response) => {
+                            var blobURL = URL.createObjectURL(response);
+                            var t = video.currentTime;
+                            once(document.documentElement, "touchstart", function (e) {
+                                video.play();
+                                video.pause();
+                            });
+
+                            video.setAttribute("src", blobURL);
+                            video.currentTime = t + 0.001;
+                        });
+                }
+            }, 200);
+        });
+    </script>
+
+</body>
+
+</html>

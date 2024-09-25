@@ -9,10 +9,7 @@
 </head>
 
 <body>
-    <!-- <h1>scroll to play video</h1>
-    <div class="videocontainer">
-	    <video id="video" src="MTU Block section_1 (1).mp4"></video>    	
-    </div> -->
+  
     <main>
         <div class="canvas-wrapper">
             <video muted playsinline preload="preload" autobuffer="autobuffer">
@@ -20,16 +17,16 @@
             </video>
             <canvas></canvas>
         </div>
-        <div class="vh-100">
-            <!-- <h1>Video onScroll</h1> -->
-        </div>
+        <!-- <div class="vh-100">
+            <h3>Text HERE</h3>
+        </div> -->
         <section class="vh-100"></section>
         <section class="vh-100"></section>
         <section class="vh-100"></section>
-        <section class="vh-100"></section>
-        <section class="vh-100">
-            <!-- <h1>The End</h1> -->
-        </section>
+        <!-- <section class="vh-100"></section> -->
+        <!-- <section class="vh-100">
+            <h3>Text Here</h3>
+        </section> -->
     </main>
 </body>
 
@@ -64,8 +61,6 @@ class ScrollVideo {
             const maxScroll = scrollHeight - clientHeight;
             const scrollProgress = scrollTop / Math.max(maxScroll, 1);
 
-            //canvas.width = document.body.clientWidth;
-            //canvas.height = document.body.clientHeight;
             this.canvas.width = this.video.videoWidth;
             this.canvas.height = this.video.videoHeight;
 

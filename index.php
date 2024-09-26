@@ -23,6 +23,8 @@ include_once('utils/menu-items.php');
    <link rel="stylesheet" href="assets/css/magnific-popup.css">
    <link rel="stylesheet" href="assets/css/font-awesome-pro.css">
    <link rel="stylesheet" href="assets/css/flaticon_shofy.css">
+   <link rel="stylesheet" href="assets/css/video-style.css">
+
 
    <link rel="stylesheet" href="assets/css/spacing.css">
    <link rel="stylesheet" href="assets/css/main.css">
@@ -13136,21 +13138,24 @@ include_once('utils/menu-items.php');
          <div class="row mt-60">
             
         <div class="fullscreen-iframe-wrapper ">
-         <!--<iframe scrolling="no" src="https://3akchemie.com/world-leaders-in-mpi-tech/" frameborder="0" allowfullscreen>-->
-         
-         <!--</iframe>-->
-         
-   
-            <!--<iframe src="https://khankaleem.in/test-copy/" frameborder="0" allowfullscreen>-->
-                <iframe id="myIframe" src="https://khankaleem.in/test-copy/" width="100%" style="border:none;"></iframe>
-         
-         </iframe>
+            
+        <main>
+        <div class="canvas-wrapper">
+            <video muted playsinline preload="preload" autobuffer="autobuffer">
+                <source type="video/mp4" src="assets/wheel-video.mp4" />
+            </video>
+            <canvas></canvas>
+        </div>
+  
+         <section class="vh-100"></section>
+         <section class="vh-100"></section>
+         <section class="vh-100"></section>
+         <section class="vh-100"></section>
+         <section class="vh-100"></section>
 
-
+         </main>
          
-         
-         
-             </div>
+         </div>
             <!--<div class="tp-collection-item tp-collection-height grey-bg p-relative z-index-1 fix video_area">-->
             <!--   <div class="section1" id="section1">-->
             <!--   <video id="video1" muted autoplay class="background-video">-->
@@ -15915,6 +15920,9 @@ include_once('utils/menu-items.php');
    <script src="assets/js/imagesloaded-pkgd.js"></script>
    <script src="assets/js/ajax-form.js"></script>
    <script src="assets/js/main.js"></script>
+   <script src="assets/js/wheel.js"></script>
+   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
 
    <script src="assets/js/flickity.pkgd.min.js"></script>
    <script>
@@ -15935,6 +15943,8 @@ include_once('utils/menu-items.php');
       },
     });
   </script>
+
+
 </body>
 
 </html>

@@ -4,7 +4,6 @@
 <head>
     <title>Scroll TO Play</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 
@@ -13,7 +12,7 @@
     <main>
         <div class="canvas-wrapper">
             <video muted playsinline preload="preload" autobuffer="autobuffer">
-                <source type="video/mp4" src="/MTU Block section_1 (1).mp4" />
+                <source type="video/mp4" src="MTU Block section_1 (1).mp4" />
             </video>
             <canvas></canvas>
         </div>
@@ -47,7 +46,6 @@ class ScrollVideo {
         this.videoDuration = this.video.duration;
     }
     init() {
-        // this.video.ondurationchange = this.setVideoDuration();
         this.video.oncanplay = this.loop();
         this.video.currentTime = 0.001;
         this.initObserver();

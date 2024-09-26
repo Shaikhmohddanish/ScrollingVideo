@@ -23,7 +23,7 @@ include_once('utils/menu-items.php');
    <link rel="stylesheet" href="assets/css/magnific-popup.css">
    <link rel="stylesheet" href="assets/css/font-awesome-pro.css">
    <link rel="stylesheet" href="assets/css/flaticon_shofy.css">
-   <link rel="stylesheet" href="assets/css/video-style.css">
+
    <link rel="stylesheet" href="assets/css/spacing.css">
    <link rel="stylesheet" href="assets/css/main.css">
    <link href="assets/css/featured-collection8018.css" rel="stylesheet" type="text/css" media="all">
@@ -1039,7 +1039,7 @@ include_once('utils/menu-items.php');
                                           <div class="d-grid gap-2">
                                           <?php echo '<a href="Categories.php?category1ID='.$categoryParentDyePanetrants.'&category2ID='.$categoryDPTEcoLine.'">'; ?>
                                              <button class="tablinks tab-menu-buttons "
-                                                onmouseover="openCity(event, 'tabEcoLine')">Eco Line
+                                                onmouseover="openCity(event, 'tabEcoLine')" style="color:green;">Eco Line
                                                 <span class="tab-menu-buttons-icon">
                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                       fill="currentColor" class="bi bi-chevron-right"
@@ -3453,7 +3453,7 @@ include_once('utils/menu-items.php');
                                           <div class="d-grid gap-2">
                                           <?php echo '<a href="Categories.php?category1ID='.$categoryParentDyePanetrants.'&category2ID='.$categoryDPTEcoLine.'">'; ?>
                                              <button class="tablinks tab-menu-buttons "
-                                                onmouseover="openCity(event, 'tabStickyEcoLine')">Eco Line
+                                                onmouseover="openCity(event, 'tabStickyEcoLine')" style="color:green;">Eco Line
                                                 <span class="tab-menu-buttons-icon">
                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                       fill="currentColor" class="bi bi-chevron-right"
@@ -13136,31 +13136,21 @@ include_once('utils/menu-items.php');
          <div class="row mt-60">
             
         <div class="fullscreen-iframe-wrapper ">
+         <!--<iframe scrolling="no" src="https://3akchemie.com/world-leaders-in-mpi-tech/" frameborder="0" allowfullscreen>-->
+         
+         <!--</iframe>-->
+         
+   
+            <!--<iframe src="https://khankaleem.in/test-copy/" frameborder="0" allowfullscreen>-->
+                <iframe id="myIframe" src="https://khankaleem.in/test-copy/" width="100%" style="border:none;"></iframe>
+         
+         </iframe>
 
 
-         <div class="canvas-wrapper">
-            <video muted playsinline preload="preload" autobuffer="autobuffer">
-                <source type="video/mp4" src="assets/wheel-video" />
-            </video>
-            <canvas></canvas>
-        </div>
-        <!-- <div class="vh-100">
-            <h3>Text HERE</h3>
-        </div> -->
-        <section class="vh-100"></section>
-        <section class="vh-100"></section>
-        <section class="vh-100"></section>
-        <!-- <section class="vh-100"></section> -->
-        <!-- <section class="vh-100">
-            <h3>Text Here</h3>
-        </section> -->
-
-         <!-- <iframe scrolling="no" src="https://3akchemie.com/world-leaders-in-mpi-tech/" frameborder="0" allowfullscreen>
-
-         </iframe> -->
-
-
-        </div>
+         
+         
+         
+             </div>
             <!--<div class="tp-collection-item tp-collection-height grey-bg p-relative z-index-1 fix video_area">-->
             <!--   <div class="section1" id="section1">-->
             <!--   <video id="video1" muted autoplay class="background-video">-->
@@ -15945,70 +15935,6 @@ include_once('utils/menu-items.php');
       },
     });
   </script>
-
-   
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script type="text/javascript">
-class ScrollVideo {
-    constructor(elem) {
-        this.elem = elem;
-        this.video = this.elem.querySelector("video");
-        this.videoDuration = 0.001;
-        this.canvas = this.elem.querySelector("canvas");
-        this.ctx = this.canvas.getContext("2d");
-        this.seeked = true;
-    }
-    setVideoDuration() {
-        console.log("ondurationchange");
-        this.videoDuration = this.video.duration;
-    }
-    init() {
-        this.video.oncanplay = this.loop();
-        this.video.currentTime = 0.001;
-        this.initObserver();
-    }
-    loop() {
-        requestAnimationFrame(() => this.loop());
-
-        if (this.seeked) {
-            this.seeked = false;
-            const { scrollHeight, clientHeight, scrollTop } = document.body;
-            const maxScroll = scrollHeight - clientHeight;
-            const scrollProgress = scrollTop / Math.max(maxScroll, 1);
-
-            this.canvas.width = this.video.videoWidth;
-            this.canvas.height = this.video.videoHeight;
-
-            if (!isNaN(this.video.duration)) {
-                this.video.currentTime = this.video.duration * scrollProgress;
-            }
-
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.drawImage(
-                this.video,
-                0,
-                0,
-                this.canvas.width,
-                this.canvas.height
-            );
-        }
-    }
-    initObserver() {
-        this.video.addEventListener("seeked", () => {
-            this.seeked = true;
-        });
-    }
-}
-
-   const Components = document.querySelectorAll(".canvas-wrapper");
-
-   Components.forEach((item) => {
-      const component = new ScrollVideo(item);
-      component.init();
-   });
-
-</script>
-
 </body>
 
 </html>

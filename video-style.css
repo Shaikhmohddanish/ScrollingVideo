@@ -14,7 +14,7 @@ body {
   font-family: sans-serif;
 }
 .canvas-wrapper {
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   display: grid;

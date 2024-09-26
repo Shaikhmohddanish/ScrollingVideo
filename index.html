@@ -4,6 +4,7 @@
 <head>
     <title>Scroll TO Play</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 
@@ -46,6 +47,7 @@ class ScrollVideo {
         this.videoDuration = this.video.duration;
     }
     init() {
+        // this.video.ondurationchange = this.setVideoDuration();
         this.video.oncanplay = this.loop();
         this.video.currentTime = 0.001;
         this.initObserver();
